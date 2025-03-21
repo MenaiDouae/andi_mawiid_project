@@ -14,3 +14,4 @@ consultations et une expérience optimisée pour les patients.
 2-Gestion des patients
 
 <3
+:)
