@@ -12,6 +12,3 @@ consultations et une expérience optimisée pour les patients.
 ## 🚀 Fonctionnalités
 1-Prise de rendez-vous en ligne
 2-Gestion des patients
-
-<3
-:)
