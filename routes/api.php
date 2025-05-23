@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ServicesController;
+use App\Http\Controllers\PatientsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -30,3 +31,15 @@ Route::post('/services', [ServicesController::class, 'api_store'])->name('servic
 Route::get('/service/{id_service}', [ServicesController::class, 'api_show'])->name('services.show');
 Route::put('/service/{id_service}', [ServicesController::class, 'api_update'])->name('services.update');
 Route::delete('/service/{id_service}', [ServicesController::class, 'api_destroy'])->name('services.delete');
+
+/*
+|--------------------------------------------------------------------------
+| Patients
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/patients', [PatientsController::class, 'api_index'])->name('patients.index');
+Route::post('/patients', [PatientsController::class, 'api_store'])->name('patients.store');
+Route::get('/patient/{id_patient}', [PatientsController::class, 'api_show'])->name('patients.show');
+Route::put('/patient/{id_patient}', [PatientsController::class, 'api_update'])->name('patients.update');
+Route::delete('/patient/{id_patient}', [PatientsController::class, 'api_destroy'])->name('patients.delete');
