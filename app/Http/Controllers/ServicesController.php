@@ -14,7 +14,6 @@ class ServicesController extends Controller
     {
         $services = Services::all();
         return response()->json($services);
-
     }
 
     public function api_store(Request $request)
