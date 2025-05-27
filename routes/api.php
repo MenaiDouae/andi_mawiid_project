@@ -1,9 +1,10 @@
 <?php
 
+use App\Http\Controllers\ServicesController;
+use App\Http\Controllers\PersonnelController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PatientsController;
-use App\Http\Controllers\ServicesController;
 use App\Http\Controllers\RendezVousController;
 
 /*
@@ -35,6 +36,18 @@ Route::delete('/service/{id_service}', [ServicesController::class, 'api_destroy'
 
 /*
 |--------------------------------------------------------------------------
+| Personnel
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/personnels', [PersonnelController::class, 'api_index'])->name('personnels.index');
+Route::post('/personnels', [PersonnelController::class, 'api_store'])->name('personnels.store');
+Route::get('/personnel/{id_personnel}', [PersonnelController::class, 'api_show'])->name('personnels.show');
+Route::put('/personnel/{id_personnel}', [PersonnelController::class, 'api_update'])->name('personnels.update');
+Route::delete('/personnel/{id_personnel}', [PersonnelController::class, 'api_destroy'])->name('personnels.delete');
+
+/*
+|--------------------------------------------------------------------------
 | Patients
 |--------------------------------------------------------------------------
 */
@@ -56,4 +69,3 @@ Route::post('/rendezVous',[RendezVousController::class,'api_store'])->name('rend
 Route::get('/rendezVous/{id_rendez_vous}',[RendezVousController::class,'api_show'])->name('rendezVous.show');
 Route::put('/rendezVous/{id_rendez_vous}',[RendezVousController::class,'api_update'])->name('rendezVous.update');
 Route::delete('/rendezVous/{id_rendez_vous}',[RendezVousController::class,'api_destroy'])->name('rendezVous.destroy');
-
