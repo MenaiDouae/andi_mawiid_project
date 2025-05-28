@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 class PersonnelController extends Controller
 {
+    // CRUD Functions API
 
     public function api_index()
     {

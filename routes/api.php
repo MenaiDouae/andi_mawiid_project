@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\PermissionsController;
 use App\Http\Controllers\ServicesController;
 use App\Http\Controllers\PersonnelController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PatientsController;
 use App\Http\Controllers\RendezVousController;
+use App\Http\Controllers\RolesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -69,3 +71,25 @@ Route::post('/rendezVous',[RendezVousController::class,'api_store'])->name('rend
 Route::get('/rendezVous/{id_rendez_vous}',[RendezVousController::class,'api_show'])->name('rendezVous.show');
 Route::put('/rendezVous/{id_rendez_vous}',[RendezVousController::class,'api_update'])->name('rendezVous.update');
 Route::delete('/rendezVous/{id_rendez_vous}',[RendezVousController::class,'api_destroy'])->name('rendezVous.destroy');
+
+
+/*
+|--------------------------------------------------------------------------
+| Roles
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/roles', [RolesController::class, 'index'])->name('roles.index');
+Route::get('/role/{id}', [RolesController::class, 'edit'])->name('roles.show');
+Route::post('/roles', [RolesController::class, 'store'])->name('roles.store');
+Route::put('/role/{id}', [RolesController::class, 'update'])->name('roles.update');
+Route::delete('/role/{id}', [RolesController::class, 'destroy'])->name('roles.destroy');
+
+/*
+|--------------------------------------------------------------------------
+| Permissions
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/permissions', [PermissionsController::class, 'index'])->name('permissions.index');
+Route::get('/permission/{id}', [PermissionsController::class, 'edit'])->name('permissions.edit');
