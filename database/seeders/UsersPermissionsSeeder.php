@@ -62,5 +62,30 @@ class UsersPermissionsSeeder extends Seeder
             'name' => 'Supprimer un personnel',
             'sub_permission' => $parent->id
         ]);
+
+        // Roles
+        $parent = Permission::create([
+            'name' => 'Gestion des Roles'
+        ]);
+
+        Permission::create([
+            'name' => 'Consulter un role',
+            'sub_permission' => $parent->id
+        ]);
+        
+        Permission::create([
+            'name' => 'Créer un nouveau role',
+            'sub_permission' => $parent->id
+        ]);
+
+        Permission::create([
+            'name' => 'Modifier un role',
+            'sub_permission' => $parent->id
+        ]);
+
+        Permission::create([
+            'name' => 'Supprimer un role',
+            'sub_permission' => $parent->id
+        ]);
     }
 }
