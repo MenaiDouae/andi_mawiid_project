@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PatientsController;
 use App\Http\Controllers\RendezVousController;
 use App\Http\Controllers\RolesController;
+use App\Http\Controllers\TraitementsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -78,7 +79,6 @@ Route::delete('/rendezVous/{id_rendez_vous}',[RendezVousController::class,'api_d
 | Roles
 |--------------------------------------------------------------------------
 */
-
 Route::get('/roles', [RolesController::class, 'index'])->name('roles.index');
 Route::get('/role/{id}', [RolesController::class, 'edit'])->name('roles.show');
 Route::post('/roles', [RolesController::class, 'store'])->name('roles.store');
@@ -90,6 +90,19 @@ Route::delete('/role/{id}', [RolesController::class, 'destroy'])->name('roles.de
 | Permissions
 |--------------------------------------------------------------------------
 */
-
 Route::get('/permissions', [PermissionsController::class, 'index'])->name('permissions.index');
 Route::get('/permission/{id}', [PermissionsController::class, 'edit'])->name('permissions.edit');
+
+/*
+|--------------------------------------------------------------------------
+| Traitements
+|--------------------------------------------------------------------------
+*/
+Route::get('/traitements', [TraitementsController::class, 'api_index'])->name('traitements.index');
+Route::post('/traitements', [TraitementsController::class, 'api_store'])->name('traitements.store');
+Route::get('/traitement/{id_traitement}', [TraitementsController::class, 'api_show'])->name('traitements.show');
+Route::put('/traitement/{id_traitement}', [TraitementsController::class, 'api_update'])->name('traitements.update');
+Route::delete('/traitement/{id_traitement}', [TraitementsController::class, 'api_destroy'])->name('traitements.destroy');
+
+
+
