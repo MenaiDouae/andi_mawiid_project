@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Personnel;
-use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\QueryException;
+use App\Http\Requests\StorePersonnelRequest;
 
 class PersonnelController extends Controller
 {
@@ -16,7 +19,7 @@ class PersonnelController extends Controller
         return response()->json($personnels);
     }
 
-    public function api_store(Request $request)
+    public function api_store(StorePersonnelRequest $request)
     {
         $data = $request->only([
             'nom',
@@ -24,11 +27,23 @@ class PersonnelController extends Controller
             'cnie',
             'adresse',
             'num_tel',
-            'sexe'
+            'sexe',
         ]);
-
         try {
-            Personnel::create($data);
+            $personnel = Personnel::create($data);
+            // Create a user for the personnel
+            $personnel->user()->create([
+                'name' => $request->nom . ' ' . $request->prenom,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+            ]);
+            $role = Role::find($request->role_id);
+            if ($role) {
+                $personnel->user->assignRole($role->name);
+            } else {
+                return response()->json(['error' => 'Role not found'], 404);
+            }
+            
         } catch (QueryException $e) {
             return response()->json(['error' => 'Error has been encountered'], 500);
         }

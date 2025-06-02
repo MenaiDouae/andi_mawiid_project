@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Patients;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Hash;
 
 class PatientsController extends Controller
 {
@@ -26,13 +28,23 @@ class PatientsController extends Controller
             'adresse' => 'nullable|string',
             'num_tel' => 'nullable|string|max:20',
             'sexe' => 'nullable|integer|in:1,2',
+            'email' => 'required|email|max:255|unique:user,email',
+            'password' => 'required|string|min:8',
         ]);
 
         try {
             $patient = Patients::create($request->all());
+            // Create a user for the patient
+            $patient->user()->create([
+                'name' => $request->nom . ' ' . $request->prenom,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+            ]);
+            $patient->user->assignRole('Patient');
+
             return response()->json([
                 'success' => 'Patient created successfully',
-                'patient' => $patient
+                'patient' => $patient->load('user.role')
             ], 201);
         } catch (QueryException $e) {
             return response()->json(['error' => 'Error while creating patient'], 500);
