@@ -21,6 +21,7 @@ return new class extends Migration
             $table->foreignId('current_team_id')->nullable();
             $table->string('profile_photo_path', 2048)->nullable();
             $table->morphs('userable');
+            $table->foreignId('id_role')->constrained('roles');
             $table->timestamps();
         });
     }
