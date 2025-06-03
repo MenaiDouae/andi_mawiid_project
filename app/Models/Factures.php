@@ -35,4 +35,13 @@ class Factures extends Model
             localKey: 'id_facture', 
             secondLocalKey: 'id_service');
     }
+
+    protected static function boot()
+    {
+        parent::boot();
+        static::deleting(function ($facture) {
+            // Delete associated traitements when a facture is deleted
+            $facture->traitements()->delete();
+        });
+    }
 }

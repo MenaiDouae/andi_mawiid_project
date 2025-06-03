@@ -2,52 +2,54 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePatientRequest;
 use App\Models\Patients;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class PatientsController extends Controller
 {
     // GET /api/patients
     public function api_index()
     {
-        $patients = Patients::all();
+        $patients = Patients::withRelations()->get();
         return response()->json($patients);
     }
 
     // POST /api/patients
-    public function api_store(Request $request)
+    public function api_store(StorePatientRequest $request)
     {
-        $request->validate([
-            'nom' => 'required|string|max:255',
-            'prenom' => 'required|string|max:255',
-            'cnie' => 'nullable|string|max:20|unique:patients',
-            'date_naissance' => 'nullable|date',
-            'adresse' => 'nullable|string',
-            'num_tel' => 'nullable|string|max:20',
-            'sexe' => 'nullable|integer|in:1,2',
-            'email' => 'required|email|max:255|unique:user,email',
-            'password' => 'required|string|min:8',
-        ]);
-
+        $data = $request->validated();
         try {
-            $patient = Patients::create($request->all());
+            $patient = Patients::create([
+                'nom' => $request->nom,
+                'prenom' => $request->prenom,
+                'cnie' => $request->cnie ?? null, // Allow cnie to be nullable
+                'date_naissance' => $request->date_naissance ?? null,
+                'adresse' => $request->adresse ?? null,
+                'num_tel' => $request->num_tel,
+                'sexe' => $request->sexe,
+            ]);
+
+            $role = Role::where('name', 'Patient')->first();
             // Create a user for the patient
             $patient->user()->create([
                 'name' => $request->nom . ' ' . $request->prenom,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
             ]);
-            $patient->user->assignRole('Patient');
+            // assign the role to the user
+            $patient->user->assignRole($role);
 
             return response()->json([
                 'success' => 'Patient created successfully',
                 'patient' => $patient->load('user.role')
             ], 201);
         } catch (QueryException $e) {
-            return response()->json(['error' => 'Error while creating patient'], 500);
+            return response()->json(['error' => $e], 500);
         }
     }
 
