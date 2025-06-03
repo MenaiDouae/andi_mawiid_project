@@ -39,6 +39,29 @@ class Patients extends Model
 
     public function user()
     {
-        return $this->morphOne(User::class, 'id_patient', 'id_patient');
+        return $this->morphOne(User::class, 'userable');
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+        static::deleting(
+            function ($patient) {
+                // Delete the associated user when a patient is deleted
+                if ($patient->user) {
+                    $patient->user->delete();
+                }
+                // Delete all associated rendez-vous
+                RendezVous::where('id_patient', $patient->id_patient)->delete();
+            }
+        );
+    }
+
+    public function scopeWithRelations($query)
+    { 
+        return $query->with([
+            'user.roles',
+            'rendezVous.factures',
+        ]);
     }
 }

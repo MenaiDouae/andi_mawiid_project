@@ -26,6 +26,6 @@ class Personnel extends Model
      */
     public function user()
     {
-        return $this->morphOne(User::class, 'id_personnel', 'id_personnel');
+        return $this->morphOne(User::class, 'userable');
     }
 }
