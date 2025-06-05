@@ -17,8 +17,7 @@ class AuthController extends Controller
             $credentials = $request->validate([
                 'email' => 'required|email|max:255|exists:users,email',
                 'password' => 'required|min:8',
-            ]);
-            // Attempt to authenticate the user
+            ]);  
             if(Auth::attempt($credentials)) {
                 $user = Auth::user();
                 $token = $user->createToken('auth_token')->plainTextToken;
@@ -36,7 +35,7 @@ class AuthController extends Controller
             ], 429);
         }
     }
-    
+
     public function logout(Request $request)
     {
         $request->user()->tokens()->delete();
@@ -45,6 +44,7 @@ class AuthController extends Controller
             $request->session()->invalidate();
             $request->session()->regenerateToken();
         }
+
         return response()->json([
             'success' => 'Logged Out'
         ], 200);
@@ -61,20 +61,23 @@ class AuthController extends Controller
             'current_password' => 'required|min:8',
             'new_password' => 'required|min:8'
         ]);
+
         $user = User::find($id_user);
         if(!$user) 
             return response()->json([
                 'error' => 'Utilisateur non trouvé!'
             ], 404);
-        // Check if the current old password is the same as the record
+       
         if(Hash::check($request->current_password, $user->password))
         {
             $user->password = Hash::make($request->new_password);
             $user->save();
+
             return response()->json([
                 'success' => 'Réinitialisation du mot de passe réussie',
             ]);
         }
+
         return response()->json([
             'error' => 'Le mot de passe actuel est incorrect!',
         ], 401);

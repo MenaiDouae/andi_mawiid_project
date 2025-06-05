@@ -45,12 +45,14 @@ class Patients extends Model
     protected static function boot()
     {
         parent::boot();
+
         static::deleting(
             function ($patient) {
                 // Delete the associated user when a patient is deleted
                 if ($patient->user) {
                     $patient->user->delete();
                 }
+
                 // Delete all associated rendez-vous
                 RendezVous::where('id_patient', $patient->id_patient)->delete();
             }

@@ -19,7 +19,7 @@ class PatientsController extends Controller
         return response()->json($patients);
     }
 
-    // POST /api/patients
+// POST /api/patients
     public function api_store(StorePatientRequest $request)
     {
         $data = $request->validated();
@@ -64,8 +64,8 @@ class PatientsController extends Controller
         return response()->json($patient);
     }
 
-    // PUT /api/patient/{id_patient}
-    public function api_update(Request $request, $id_patient)
+// PUT /api/patient/{id_patient}    
+public function api_update(Request $request, $id_patient)
     {
         $patient = Patients::find($id_patient);
         if (!$patient) {
@@ -93,8 +93,8 @@ class PatientsController extends Controller
         }
     }
 
-    // DELETE /api/patient/{id_patient}
-    public function api_destroy($id_patient)
+// DELETE /api/patient/{id_patient}    
+public function api_destroy($id_patient)
     {
         $patient = Patients::find($id_patient);
         if (!$patient) {
