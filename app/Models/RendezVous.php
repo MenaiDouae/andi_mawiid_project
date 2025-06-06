@@ -35,7 +35,7 @@ class RendezVous extends Model
 
     protected static function boot()
     {
-        parent::boot();
+        parent::boot();   
         static::deleting(function ($rendezVous) {
             // Delete associated factures when a rendez-vous is deleted
             $rendezVous->factures()->delete();

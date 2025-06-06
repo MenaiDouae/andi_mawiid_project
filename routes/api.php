@@ -21,14 +21,16 @@ use App\Http\Controllers\TraitementsController;
 |
 */
 
+// group api's under as 'api' name
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
 /*
-|--------------------------------------------------------------------------
-| AUTH
-|--------------------------------------------------------------------------
+    |--------------------------------------------------------------------------
+    | AUTH
+    |--------------------------------------------------------------------------
 */
 require __DIR__.'/auth.php';
 
@@ -38,11 +40,12 @@ require __DIR__.'/auth.php';
 |--------------------------------------------------------------------------
 */
 
-Route::get('/services', [ServicesController::class, 'api_index'])->name('services.index');
-Route::post('/services', [ServicesController::class, 'api_store'])->name('services.store');
-Route::get('/service/{id_service}', [ServicesController::class, 'api_show'])->name('services.show');
-Route::put('/service/{id_service}', [ServicesController::class, 'api_update'])->name('services.update');
-Route::delete('/service/{id_service}', [ServicesController::class, 'api_destroy'])->name('services.delete');
+Route::get('/services', [ServicesController::class, 'api_index'])->name('api.services.index');
+Route::post('/services', [ServicesController::class, 'api_store'])->name('api.services.store');
+Route::get('/service/{id_service}', [ServicesController::class, 'api_show'])->name('api.services.show');
+Route::put('/service/{id_service}', [ServicesController::class, 'api_update'])->name('api.services.update');
+Route::delete('/service/{id_service}', [ServicesController::class, 'api_destroy'])->name('api.services.delete');
+Route::delete('/services', [ServicesController::class, 'api_multiple_delete'])->name('api.services.delete_all');
 
 /*
 |--------------------------------------------------------------------------
@@ -50,11 +53,11 @@ Route::delete('/service/{id_service}', [ServicesController::class, 'api_destroy'
 |--------------------------------------------------------------------------
 */
 
-Route::get('/personnels', [PersonnelController::class, 'api_index'])->name('personnels.index');
+Route::get('/personnels', [PersonnelController::class, 'api_index'])->name('api.personnels.index');
 Route::post('/personnels', [PersonnelController::class, 'api_store'])->name('personnels.store');
-Route::get('/personnel/{id_personnel}', [PersonnelController::class, 'api_show'])->name('personnels.show');
-Route::put('/personnel/{id_personnel}', [PersonnelController::class, 'api_update'])->name('personnels.update');
-Route::delete('/personnel/{id_personnel}', [PersonnelController::class, 'api_destroy'])->name('personnels.delete');
+Route::get('/personnel/{id_personnel}', [PersonnelController::class, 'api_show'])->name('api.personnels.show');
+Route::put('/personnel/{id_personnel}', [PersonnelController::class, 'api_update'])->name('api.personnels.update');
+Route::delete('/personnel/{id_personnel}', [PersonnelController::class, 'api_destroy'])->name('api.personnels.delete');
 
 /*
 |--------------------------------------------------------------------------
@@ -62,11 +65,11 @@ Route::delete('/personnel/{id_personnel}', [PersonnelController::class, 'api_des
 |--------------------------------------------------------------------------
 */
 
-Route::get('/patients', [PatientsController::class, 'api_index'])->name('patients.index');
-Route::post('/patients', [PatientsController::class, 'api_store'])->name('patients.store');
-Route::get('/patient/{id_patient}', [PatientsController::class, 'api_show'])->name('patients.show');
-Route::put('/patient/{id_patient}', [PatientsController::class, 'api_update'])->name('patients.update');
-Route::delete('/patient/{id_patient}', [PatientsController::class, 'api_destroy'])->name('patients.delete');
+Route::get('/patients', [PatientsController::class, 'api_index'])->name('api.patients.index');
+Route::post('/patients', [PatientsController::class, 'api_store'])->name('api.patients.store');
+Route::get('/patient/{id_patient}', [PatientsController::class, 'api_show'])->name('api.patients.show');
+Route::put('/patient/{id_patient}', [PatientsController::class, 'api_update'])->name('api.patients.update');
+Route::delete('/patient/{id_patient}', [PatientsController::class, 'api_destroy'])->name('api.patients.delete');
 
 /*
 |--------------------------------------------------------------------------
@@ -74,11 +77,11 @@ Route::delete('/patient/{id_patient}', [PatientsController::class, 'api_destroy'
 |--------------------------------------------------------------------------
 */
 
-Route::get('/rendezVous',[RendezVousController::class,'api_index'])->name('rendezVous.index');
-Route::post('/rendezVous',[RendezVousController::class,'api_store'])->name('rendezVous.store');
-Route::get('/rendezVous/{id_rendez_vous}',[RendezVousController::class,'api_show'])->name('rendezVous.show');
-Route::put('/rendezVous/{id_rendez_vous}',[RendezVousController::class,'api_update'])->name('rendezVous.update');
-Route::delete('/rendezVous/{id_rendez_vous}',[RendezVousController::class,'api_destroy'])->name('rendezVous.destroy');
+Route::get('/rendezVous',[RendezVousController::class,'api_index'])->name('api.rendezVous.index');
+Route::post('/rendezVous',[RendezVousController::class,'api_store'])->name('api.rendezVous.store');
+Route::get('/rendezVous/{id_rendez_vous}',[RendezVousController::class,'api_show'])->name('api.rendezVous.show');
+Route::put('/rendezVous/{id_rendez_vous}',[RendezVousController::class,'api_update'])->name('api.rendezVous.update');
+Route::delete('/rendezVous/{id_rendez_vous}',[RendezVousController::class,'api_destroy'])->name('api.rendezVous.destroy');
 
 
 /*
@@ -86,30 +89,30 @@ Route::delete('/rendezVous/{id_rendez_vous}',[RendezVousController::class,'api_d
 | Roles
 |--------------------------------------------------------------------------
 */
-Route::get('/roles', [RolesController::class, 'index'])->name('roles.index');
-Route::get('/role/{id}', [RolesController::class, 'edit'])->name('roles.show');
-Route::post('/roles', [RolesController::class, 'store'])->name('roles.store');
-Route::put('/role/{id}', [RolesController::class, 'update'])->name('roles.update');
-Route::delete('/role/{id}', [RolesController::class, 'destroy'])->name('roles.destroy');
+Route::get('/roles', [RolesController::class, 'index'])->name('api.roles.index');
+Route::get('/role/{id}', [RolesController::class, 'edit'])->name('api.roles.show');
+Route::post('/roles', [RolesController::class, 'store'])->name('api.roles.store');
+Route::put('/role/{id}', [RolesController::class, 'update'])->name('api.roles.update');
+Route::delete('/role/{id}', [RolesController::class, 'destroy'])->name('api.roles.destroy');
 
 /*
 |--------------------------------------------------------------------------
 | Permissions
 |--------------------------------------------------------------------------
 */
-Route::get('/permissions', [PermissionsController::class, 'index'])->name('permissions.index');
-Route::get('/permission/{id}', [PermissionsController::class, 'edit'])->name('permissions.edit');
+Route::get('/permissions', [PermissionsController::class, 'index'])->name('api.permissions.index');
+Route::get('/permission/{id}', [PermissionsController::class, 'edit'])->name('api.permissions.edit');
 
 /*
 |--------------------------------------------------------------------------
 | Traitements
 |--------------------------------------------------------------------------
 */
-Route::get('/traitements', [TraitementsController::class, 'api_index'])->name('traitements.index');
-Route::post('/traitements', [TraitementsController::class, 'api_store'])->name('traitements.store');
-Route::get('/traitement/{id_traitement}', [TraitementsController::class, 'api_show'])->name('traitements.show');
-Route::put('/traitement/{id_traitement}', [TraitementsController::class, 'api_update'])->name('traitements.update');
-Route::delete('/traitement/{id_traitement}', [TraitementsController::class, 'api_destroy'])->name('traitements.destroy');
+Route::get('/traitements', [TraitementsController::class, 'api_index'])->name('api.traitements.index');
+Route::post('/traitements', [TraitementsController::class, 'api_store'])->name('api.traitements.store');
+Route::get('/traitement/{id_traitement}', [TraitementsController::class, 'api_show'])->name('api.traitements.show');
+Route::put('/traitement/{id_traitement}', [TraitementsController::class, 'api_update'])->name('api.traitements.update');
+Route::delete('/traitement/{id_traitement}', [TraitementsController::class, 'api_destroy'])->name('api.traitements.destroy');
 
 
 
