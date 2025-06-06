@@ -17,7 +17,7 @@ class AuthController extends Controller
             $credentials = $request->validate([
                 'email' => 'required|email|max:255|exists:users,email',
                 'password' => 'required|min:8',
-            ]);  
+            ]);
             if(Auth::attempt($credentials)) {
                 $user = Auth::user();
                 $token = $user->createToken('auth_token')->plainTextToken;
@@ -67,7 +67,7 @@ class AuthController extends Controller
             return response()->json([
                 'error' => 'Utilisateur non trouvé!'
             ], 404);
-       
+        
         if(Hash::check($request->current_password, $user->password))
         {
             $user->password = Hash::make($request->new_password);

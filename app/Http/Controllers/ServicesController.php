@@ -5,10 +5,24 @@ namespace App\Http\Controllers;
 use App\Models\Services;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class ServicesController extends Controller
 {
-    // CRUD Functions API
+    /* ------------------------------------------
+    /  Frontend for Services
+    / ------------------------------------------ */
+    public function index()
+    {
+        $services = Services::all();
+        return Inertia::render('Services/Liste', [
+            'services' => $services
+        ]);
+    }
+
+    /* ------------------------------------------
+    /  API Endpoints for Services
+    / ------------------------------------------ */
 
     public function api_index()
     {
@@ -82,5 +96,16 @@ class ServicesController extends Controller
         return response()->json(
             ['success' => 'Service has been deleted successfully!']
         , 200);
+    }
+
+    public function api_multiple_delete(Request $request)
+    {
+        $ids = $request->ids;
+        if(empty($ids))
+            return response()->json(['error' => 'No IDs provided'], 400);
+
+        Services::whereIn('id_service', $ids)->delete();
+
+        return response()->json(['success' => 'Services deleted successfully!'], 200);
     }
 }

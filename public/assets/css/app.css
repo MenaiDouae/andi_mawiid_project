@@ -26,8 +26,8 @@ File: App Css
 }
 
 .btn-primary {
-  -webkit-box-shadow: 0 1px 2px 0 rgba(34, 197, 94, 0.35);
-          box-shadow: 0 1px 2px 0 rgba(34, 197, 94, 0.35);
+  -webkit-box-shadow: 0 1px 2px 0 #466fff59;
+          box-shadow: 0 1px 2px 0 #466fff59;
 }
 .btn-primary:hover {
   -webkit-box-shadow: none;
