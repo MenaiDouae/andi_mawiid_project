@@ -19,14 +19,14 @@ class TraitementsController extends Controller
         $request->validate([
             'id_service' => 'required|exists:services,id_service',
             'id_facture' => 'required|exists:factures,id_facture',
-            
+            'id_cabinet' => 'required|exists:cabinets,id_cabinet',
         ]);
 
         try {
             $traitements = Traitements::create($request->all());
             return response()->json([
                 'success' => 'Traitement created successfully',
-                'traitement' => $traitements->load(['service', 'facture'])
+                'traitement' => $traitements->load(['service', 'facture', 'cabinet'])
             ], 201);
         } catch (QueryException $e) {
             return response()->json(['error' => 'Error while creating traitement'], 500);
@@ -52,14 +52,14 @@ class TraitementsController extends Controller
         $request->validate([
             'id_service' => 'required|exists:services,id_service',
             'id_facture' => 'required|exists:factures,id_facture',
-
+            'id_cabinet' => 'required|exists:cabinets,id_cabinet',
         ]);
 
         try {
             $traitement->update($request->all());
             return response()->json([
                 'success' => 'Traitement updated successfully', 
-                'traitement' => $traitement->load(['service', 'facture'])]);
+                'traitement' => $traitement->load(['service', 'facture', 'cabinet'])]);
         } catch (QueryException $e) {
             return response()->json(['error' => 'Error while updating traitement'], 500);
         }

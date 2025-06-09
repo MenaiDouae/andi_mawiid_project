@@ -19,6 +19,7 @@ class Personnel extends Model
         'adresse',
         'num_tel',
         'sexe',
+        'id_cabinet'
     ];
 
     /**
@@ -27,5 +28,9 @@ class Personnel extends Model
     public function user()
     {
         return $this->morphOne(User::class, 'userable');
+    }
+    public function cabinet()
+    {
+        return $this->belongsTo(Cabinets::class, 'id_cabinet', 'id_cabinet');
     }
 }

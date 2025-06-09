@@ -16,6 +16,7 @@ class RendezVous extends Model
         'etat',
         'id_patient',
         'id_service',
+        'id_cabinet',
         'commentaire'
     ];
     
@@ -28,14 +29,20 @@ class RendezVous extends Model
         return $this->belongsTo(Patients::class , 'id_patient', 'id_patient');
     }
 
+    public function cabinet()
+    {
+        return $this->belongsTo(Cabinets::class, 'id_cabinet', 'id_cabinet');
+    }
+
     public function scopeWithRelations($query)
     {
-        return $query->with(['service', 'patient']);
+        return $query->with(['service', 'patient', 'cabinet']);
     }
 
     protected static function boot()
     {
-        parent::boot();   
+        parent::boot();
+    
         static::deleting(function ($rendezVous) {
             // Delete associated factures when a rendez-vous is deleted
             $rendezVous->factures()->delete();

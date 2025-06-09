@@ -28,9 +28,10 @@ class PersonnelController extends Controller
             'adresse',
             'num_tel',
             'sexe',
+            'id_cabinet',
         ]);
         try {
-            $personnel = Personnel::create($data);
+            $personnel = Personnel::create($data);      
             // Create a user for the personnel
             $personnel->user()->create([
                 'name' => $request->nom . ' ' . $request->prenom,
@@ -78,7 +79,8 @@ class PersonnelController extends Controller
             'cnie',
             'adresse',
             'num_tel',
-            'sexe'
+            'sexe',
+            'id_cabinet'
         ]));
 
         try {

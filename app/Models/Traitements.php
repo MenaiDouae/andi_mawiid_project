@@ -37,9 +37,13 @@ class Traitements extends Model
         'id_facture',
         'id_rendez_vous')->through('rendezVous'); 
     }
-
-    public function scopeWithPatient($query)
+    public function cabinet()
     {
-        return $query->with('patient','facture','service');
+        return $this->belongsTo(Cabinets::class, 'id_cabinet', 'id_cabinet');
+    }
+
+    public function scopeWithRelations($query)
+    {
+        return $query->with(['patient','facture','service', 'cabinet']);
     }
 }

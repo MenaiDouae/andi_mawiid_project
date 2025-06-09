@@ -27,7 +27,7 @@ class StorePersonnelRequest extends FormRequest
             'cnie' => 'nullable|string|max:20|unique:personnels',
             'adresse' => 'nullable|string|max:255',
             'num_tel' => 'nullable|string|max:20',
-            'sexe' => 'nullable|integer|in:1,2', 
+            'sexe' => 'nullable|integer|in:1,2', //
             'email' => 'required|email|max:255|unique:users,email',
             'password' => 'required|string|min:8',
             'role_id' => 'required|exists:roles,id',

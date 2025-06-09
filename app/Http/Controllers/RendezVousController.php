@@ -21,7 +21,8 @@ class RendezVousController extends Controller
             'heure_rendez_vous' => 'required',
             'etat' => 'nullable|in:0,1,2',
             'id_patient' => 'required',
-            'id_service' => 'required'
+            'id_service' => 'required',
+            'id_cabinet' => 'required',
         ]);
 
         //Check if an appointment already exists at the same date and time
@@ -63,7 +64,8 @@ class RendezVousController extends Controller
             'heure_rendez_vous' => 'required',
             'etat' => 'nullable|in:0,1,2',
             'id_patient' => 'required',
-            'id_service' => 'required'
+            'id_service' => 'required',
+            'id_cabinet' => 'required',
         ]);
         $existe = RendezVous::where('date_rendez_vous', $request->date_rendez_vous)
             ->where('heure_rendez_vous', $request->heure_rendez_vous)
