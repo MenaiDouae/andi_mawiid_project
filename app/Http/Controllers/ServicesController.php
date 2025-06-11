@@ -97,15 +97,4 @@ class ServicesController extends Controller
             ['success' => 'Service has been deleted successfully!']
         , 200);
     }
-
-    public function api_multiple_delete(Request $request)
-    {
-        $ids = $request->ids;
-        if(empty($ids))
-            return response()->json(['error' => 'No IDs provided'], 400);
-
-        Services::whereIn('id_service', $ids)->delete();
-
-        return response()->json(['success' => 'Services deleted successfully!'], 200);
-    }
 }

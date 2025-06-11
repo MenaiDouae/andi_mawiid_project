@@ -1,6 +1,5 @@
 <template>
-
-    <Head title="Services" />
+    <Head title="Régions" />
 
     <div class="row justify-content-center">
         <div class="col-7">
@@ -8,17 +7,16 @@
                 <div class="card-header">
                     <div class="row align-items-center">
                         <div class="col">
-                            <h4 class="card-title">Services</h4>
+                            <h4 class="card-title">Régions</h4>
                         </div>
-                    </div>
+                    </div> 
                 </div>
                 <div class="card-body pt-0">
                     <div class="table-responsive">
-                        <DataTable :data="services_data" :columns="columns" :options="options" class="datatable table">
+                        <DataTable :data="regions_data" :columns="columns" :options="options" class="datatable table">
                             <thead>
                                 <tr>
-                                    <th>Service</th>
-                                    <th>Prix</th>
+                                    <th>Région</th>
                                 </tr>
                             </thead>
                         </DataTable>
@@ -27,16 +25,16 @@
             </div>
         </div> 
         <div class="col-5">
-            <CreateService @serviceAdded="refreshServices" v-if="!updating" />
-            <UpdateService @serviceUpdated="refreshServices" @cancelUpdate="handleCancelUpdate"
-                :service="updated_service" v-if="updating" />
+            <CreateRegion @regionAdded="refreshRegions" v-if="!updating" />
+            <UpdateRegion @regionUpdated="refreshRegions" @cancelUpdate="handleCancelUpdate"
+                :region="updated_region" v-if="updating" />
         </div>
     </div>
 </template>
 
 <script setup>
-import CreateService from '@/Pages/Services/Create.vue';
-import UpdateService from '@/Pages/Services/Edit.vue';
+import CreateRegion from '@/Pages/Regions/Create.vue';
+import UpdateRegion from '@/Pages/Regions/Edit.vue';
 import axios from 'axios';
 import { Head } from '@inertiajs/vue3';
 import DataTable from 'datatables.net-vue3';
@@ -46,17 +44,14 @@ import Swal from 'sweetalert2';
 import 'datatables.net-responsive';
 import 'datatables.net-select';
 
-
 const props = defineProps({
-    services: Array,
+    regions: Array,
 });
-console.log(props.services);
-const services_data = ref(props.services || []);
+const regions_data = ref(props.regions || []);
 const updating = ref(false);
-const updated_service = ref(null);
+const updated_region = ref(null);
 const columns = [
-    { data: 'service_name', title: 'Service Name' },
-    { data: 'prix', title: 'Prix' },
+    { data: 'region', title: 'Région' },
     {
         data: null,
         title: 'Actions',
@@ -64,10 +59,10 @@ const columns = [
         searchable: false,
         render: function (data, type, row) {
             return `
-        <button class="btn btn-sm btn-primary btn-edit" data-id="${row.id_service}">
+        <button class="btn btn-sm btn-primary btn-edit" data-id="${row.id_region}">
           <i class="la la-pen"></i>
         </button>
-        <button class="btn btn-sm btn-danger btn-delete" data-id="${row.id_service}">
+        <button class="btn btn-sm btn-danger btn-delete" data-id="${row.id_region}">
           <i class="la la-trash"></i>
         </button>
       `;
@@ -85,23 +80,21 @@ onMounted(() => {
     document.addEventListener('click', (e) => {
         if (e.target.closest('.btn-delete')) {
             const id = e.target.closest('.btn-delete').dataset.id;
-            deleteService(parseInt(id));
+            deleteRegion(parseInt(id));
         }
         if (e.target.closest('.btn-edit')) {
             const id = e.target.closest('.btn-edit').dataset.id;
-            updateService(parseInt(id));
+            updateRegion(parseInt(id));
         }
     });
 });
 
-console.log(services_data);
 
-
-const getServices = async () => {
+const getRegions = async () => {
     try {
-        const response = await axios.get(route('api.services.index'));
+        const response = await axios.get(route('api.regions.index'));
         if (response.status === 200) {
-            services_data.value = response.data;
+            regions_data.value = response.data;
         } else {
             Swal.fire(
                 'Erreur',
@@ -112,22 +105,17 @@ const getServices = async () => {
     } catch (error) {
         Swal.fire(
             'Erreur',
-            'Une erreur est survenue lors de la récupération des services.',
+            'Une erreur est survenue lors de la récupération des régions.',
             'error'
         );
     }
 };
 
-const refreshServices = () => {
-    getServices();
+const refreshRegions = () => {
+    getRegions();
 };
 
-const handleServiceUpdated = () => {
-    getServices();
-    handleCancelUpdate();
-};
-
-const deleteService = async (id) => {
+const deleteRegion = async (id) => {
     Swal.fire({
         title: 'Êtes-vous sûr ?',
         text: "Vous ne pourrez pas revenir en arrière !",
@@ -139,18 +127,18 @@ const deleteService = async (id) => {
     }).then(async (result) => {
         if (result.isConfirmed) {
             try {
-                await axios.delete(route('api.services.delete', id));
+                await axios.delete(route('api.region.delete', id));
                 Swal.fire(
                     'Supprimé !',
-                    'Le service a été supprimé.',
+                    'La région a été supprimée.',
                     'success'
                 );
-                getServices();
+                getRegions();
             } catch (error) {
                 console.error(error);
                 Swal.fire(
                     'Erreur',
-                    'Une erreur est survenue lors de la suppression du service.',
+                    'Une erreur est survenue lors de la suppression de la région.',
                     'error'
                 );
             }
@@ -158,16 +146,15 @@ const deleteService = async (id) => {
     });
 };
 
-const updateService = (id) => {
-    updated_service.value = services_data.value.find(s => s.id_service === id);
+const updateRegion = (id) => {
+    updated_region.value = regions_data.value.find(r => r.id_region === id);
     updating.value = true;
 };
 
 const handleCancelUpdate = () => {
     updating.value = false;
-    updated_service.value = null;
+    updated_region.value = null;
 };
-
 </script>
 
 <style scoped>

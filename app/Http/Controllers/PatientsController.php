@@ -12,22 +12,22 @@ use Spatie\Permission\Models\Role;
 
 class PatientsController extends Controller
 {
-    // GET /api/patients
+
     public function api_index()
     {
         $patients = Patients::withRelations()->get();
         return response()->json($patients);
     }
 
-    // POST /api/patients
     public function api_store(StorePatientRequest $request)
     {
         $data = $request->validated();
+
         try {
             $patient = Patients::create([
                 'nom' => $request->nom,
                 'prenom' => $request->prenom,
-                'cnie' => $request->cnie ?? null, // Allow cnie to be nullable
+                'cnie' => $request->cnie ?? null,
                 'date_naissance' => $request->date_naissance ?? null,
                 'adresse' => $request->adresse ?? null,
                 'num_tel' => $request->num_tel,
@@ -53,7 +53,6 @@ class PatientsController extends Controller
         }
     }
 
-    // GET /api/patient/{id_patient}
     public function api_show($id_patient)
     {
         $patient = Patients::find($id_patient);
@@ -64,7 +63,6 @@ class PatientsController extends Controller
         return response()->json($patient);
     }
 
-    // PUT /api/patient/{id_patient}
     public function api_update(Request $request, $id_patient)
     {
         $patient = Patients::find($id_patient);
@@ -93,7 +91,7 @@ class PatientsController extends Controller
         }
     }
 
-    // DELETE /api/patient/{id_patient}
+    
     public function api_destroy($id_patient)
     {
         $patient = Patients::find($id_patient);
