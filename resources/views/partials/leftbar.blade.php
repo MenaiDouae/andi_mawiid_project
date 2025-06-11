@@ -10,14 +10,14 @@
                 </span>
             </a>
         </div>
-
+       
         <div class="startbar-menu" >
             <div class="startbar-collapse" id="startbarCollapse" data-simplebar>
                 <div class="d-flex align-items-start flex-column w-100">
-
+                   
                     <ul class="navbar-nav mb-auto w-100">
                         <li class="menu-label pt-0 mt-0">
-        
+                            
                             <span>Main Menu</span>
                         </li>
                         <li class="nav-item">
@@ -26,6 +26,8 @@
                                 <span>Dashboards</span>
                             </a>
                         </li>
+                        
+                        {{-- Users --}}
                         <li class="menu-label mt-2">
                             <small class="label-border">
                                 <div class="border_left hidden-xs"></div>
@@ -44,10 +46,10 @@
                                 <ul class="nav flex-column">
                                     <li class="nav-item">
                                         <a class="nav-link" href="#">Liste Utilisateurs</a>
-                                    </li><!--end nav-item-->
+                                    </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="#">Personnels</a>
-                                    </li><!--end nav-item-->
+                                    </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="#">Droits d'accés</a>
                                     </li>
@@ -79,7 +81,7 @@
                                         <a class="nav-link" href="#">Specialités</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#">Régions</a>
+                                        <a class="nav-link" href="{{route('regions.index')}}">Régions</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="#">Villes</a>
@@ -132,7 +134,7 @@
                     </ul>
                 </div>
             </div>
-        </div>
+        </div>   
     </div>
-    
+   
     <div class="startbar-overlay d-print-none"></div>

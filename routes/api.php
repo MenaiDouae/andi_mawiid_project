@@ -1,13 +1,14 @@
 <?php
 
-use App\Http\Controllers\PermissionsController;
-use App\Http\Controllers\ServicesController;
-use App\Http\Controllers\PersonnelController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PatientsController;
-use App\Http\Controllers\RendezVousController;
 use App\Http\Controllers\RolesController;
+use App\Http\Controllers\RegionsController;
+use App\Http\Controllers\PatientsController;
+use App\Http\Controllers\ServicesController;
+use App\Http\Controllers\PersonnelController;
+use App\Http\Controllers\RendezVousController;
+use App\Http\Controllers\PermissionsController;
 use App\Http\Controllers\TraitementsController;
 
 /*
@@ -45,7 +46,6 @@ Route::post('/services', [ServicesController::class, 'api_store'])->name('api.se
 Route::get('/service/{id_service}', [ServicesController::class, 'api_show'])->name('api.services.show');
 Route::put('/service/{id_service}', [ServicesController::class, 'api_update'])->name('api.services.update');
 Route::delete('/service/{id_service}', [ServicesController::class, 'api_destroy'])->name('api.services.delete');
-Route::delete('/services', [ServicesController::class, 'api_multiple_delete'])->name('api.services.delete_all');
 
 /*
 |--------------------------------------------------------------------------
@@ -113,6 +113,16 @@ Route::post('/traitements', [TraitementsController::class, 'api_store'])->name('
 Route::get('/traitement/{id_traitement}', [TraitementsController::class, 'api_show'])->name('api.traitements.show');
 Route::put('/traitement/{id_traitement}', [TraitementsController::class, 'api_update'])->name('api.traitements.update');
 Route::delete('/traitement/{id_traitement}', [TraitementsController::class, 'api_destroy'])->name('api.traitements.destroy');
+/*
+|--------------------------------------------------------------------------
+| Regions
+|--------------------------------------------------------------------------
+*/
+Route::get('/regions', [RegionsController::class, 'api_index'])->name('api.regions.index');
+Route::post('/region', [RegionsController::class, 'api_store'])->name('api.region.store');
+Route::get('/region/{id_region}', [RegionsController::class, 'api_show'])->name('api.region.show');
+Route::put('/region/{id_region}', [RegionsController::class, 'api_update'])->name('api.region.update');
+Route::delete('/region/{id_region}', [RegionsController::class, 'api_destroy'])->name('api.region.delete');
 
 
 

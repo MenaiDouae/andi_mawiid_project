@@ -31,13 +31,16 @@ class PersonnelController extends Controller
             'id_cabinet',
         ]);
         try {
-            $personnel = Personnel::create($data);      
+            $personnel = Personnel::create($data);
+            
             // Create a user for the personnel
             $personnel->user()->create([
                 'name' => $request->nom . ' ' . $request->prenom,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
             ]);
+
+            // Assign the role to the user
             $role = Role::find($request->role_id);
             if ($role) {
                 $personnel->user->assignRole($role->name);
