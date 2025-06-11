@@ -2,7 +2,7 @@
     <div class="card">
         <div class="card-header">
             <h4 class="card-title">Ajouter un service</h4>
-        </div><!--end card-header-->
+        </div>
         <div class="card-body">
             <form @submit.prevent="submitForm">
                 <div class="mb-3">
@@ -18,7 +18,7 @@
                 <button type="submit" class="btn btn-primary">Ajouter</button>
                 <button type="reset" class="btn btn-secondary">Annuler</button>
             </form>
-        </div><!--end card-body-->
+        </div>
     </div>
 </template>
 <script>

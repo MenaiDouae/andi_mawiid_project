@@ -21,10 +21,12 @@ class Regions extends Model
     protected static function boot()
     {
         parent::boot();
-    
+
         static::deleting(function ($region) {
-            // Delete associated villes when a region is deleted
-            $region->villes->delete();
+        // Delete associated villes when a region is deleted
+        foreach ($region->villes as $ville) { 
+        $ville->delete();
+        }
         });
     }
 }

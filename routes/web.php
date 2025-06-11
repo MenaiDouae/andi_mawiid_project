@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\RegionsController;
 use App\Http\Controllers\ServicesController;
+use App\Http\Controllers\VillesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,3 +45,9 @@ Route::get('/services', [ServicesController::class, 'index'])->name('services.in
 |--------------------------------------------------------------------------
 */
 Route::get('/regions', [RegionsController::class, 'index'])->name('regions.index');
+/*
+|--------------------------------------------------------------------------
+| Villes
+|--------------------------------------------------------------------------
+*/
+Route::get('/villes',[VillesController::class ,'index'])->name('villes.index');
