@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CabinetsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RolesController;
@@ -145,4 +146,13 @@ Route::post('/speciality',[SpecialitiesController::class,'api_store'])->name('ap
 Route::get('/speciality/{id_specialite}',[SpecialitiesController::class,'api_show'])->name('api.speciality.show');
 Route::put('/speciality/{id_specialite}',[SpecialitiesController::class,'api_update'])->name('api.speciality.update');
 Route::delete('/speciality/{id_specialite}',[SpecialitiesController::class,'api_destroy'])->name('api.speciality.delete');
-
+/*
+|--------------------------------------------------------------------------
+| Cabinets
+|--------------------------------------------------------------------------
+*/
+Route::get('/cabinets',[CabinetsController::class,'api_index'])->name('api.cabinets.index');
+Route::post('/cabinet',[CabinetsController::class,'api_store'])->name('api.cabinet.store');
+Route::get('/cabinet/{id_cabinet}',[CabinetsController::class,'api_show'])->name('api.cabinet.show');
+Route::put('/cabinet/{id_cabinet}',[CabinetsController::class,'api_update'])->name('api.cabinet.update');
+Route::delete('/cabinet/{id_cabinet}',[CabinetsController::class,'api_destroy'])->name('api.cabinet.delete');
