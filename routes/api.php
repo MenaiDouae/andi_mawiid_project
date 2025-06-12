@@ -10,6 +10,7 @@ use App\Http\Controllers\PersonnelController;
 use App\Http\Controllers\RendezVousController;
 use App\Http\Controllers\PermissionsController;
 use App\Http\Controllers\TraitementsController;
+use App\Http\Controllers\VillesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -123,6 +124,15 @@ Route::post('/region', [RegionsController::class, 'api_store'])->name('api.regio
 Route::get('/region/{id_region}', [RegionsController::class, 'api_show'])->name('api.region.show');
 Route::put('/region/{id_region}', [RegionsController::class, 'api_update'])->name('api.region.update');
 Route::delete('/region/{id_region}', [RegionsController::class, 'api_destroy'])->name('api.region.delete');
-
+/*
+|--------------------------------------------------------------------------
+| Villes
+|--------------------------------------------------------------------------
+*/
+Route::get('/villes',[VillesController::class,'api_index'])->name('api.villes.index');
+Route::post('/ville',[VillesController::class,'api_store'])->name('api.ville.store');
+Route::get('/ville/{id_ville}',[VillesController::class,'api_show'])->name('api.ville.show');
+Route::put('/ville/{id_ville}',[VillesController::class,'api_update'])->name('api.ville.update');
+Route::delete('/ville/{id_ville}',[VillesController::class,'api_destroy'])->name('api.ville.delete');
 
 

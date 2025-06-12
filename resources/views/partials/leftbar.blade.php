@@ -84,7 +84,7 @@
                                         <a class="nav-link" href="{{route('regions.index')}}">Régions</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#">Villes</a>
+                                        <a class="nav-link" href="{{route('villes.index')}}">Villes</a>
                                     </li>
                                 </ul>
                             </div>
