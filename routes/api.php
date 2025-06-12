@@ -92,7 +92,7 @@ Route::delete('/rendezVous/{id_rendez_vous}',[RendezVousController::class,'api_d
 */
 Route::get('/roles', [RolesController::class, 'index'])->name('api.roles.index');
 Route::get('/role/{id}', [RolesController::class, 'edit'])->name('api.roles.show');
-Route::post('/roles', [RolesController::class, 'store'])->name('api.roles.store');
+Route::post('/role', [RolesController::class, 'store'])->name('api.roles.store');
 Route::put('/role/{id}', [RolesController::class, 'update'])->name('api.roles.update');
 Route::delete('/role/{id}', [RolesController::class, 'destroy'])->name('api.roles.destroy');
 

@@ -46,7 +46,7 @@ class PatientsController extends Controller
 
             return response()->json([
                 'success' => 'Patient created successfully',
-                'patient' => $patient->load('user.role')
+                'patient' => $patient->load('user.roles')
             ], 201);
         } catch (QueryException $e) {
             return response()->json(['error' => $e], 500);

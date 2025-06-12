@@ -33,6 +33,12 @@ class VillesController extends Controller
             'ville'=>'required',
             'id_region'=>'required'
         ]);
+        $existe=Villes::where('ville',$request->ville)->first();
+        if($existe){
+            return response()->json([
+                'error'=>'city already exists'
+            ],409);
+        }
         $ville=$request->ville;
         $id_region=$request->id_region;
         try {

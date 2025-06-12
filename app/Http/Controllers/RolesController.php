@@ -60,16 +60,17 @@ class RolesController extends Controller
                 "message" => "Role Not Found!"
             ], 404);
 
-        DB::table('role_has_permissions')->where('id_role', $id_role)->delete();
+        DB::table('role_has_permissions')->where('role_id', $id_role)->delete();
 
         $role->update([
             'name' => $request->name,
         ]);
 
+        if (is_array($request->permissions)){
         foreach($request->permissions as $id_permission){
             $role->givePermissionTo(Permission::findById($id_permission));
         }
-
+    }
         return response()->json([
             "type_message" => "success",
             "message" => "Role Updated Successfully!"
