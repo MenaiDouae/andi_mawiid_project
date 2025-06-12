@@ -78,7 +78,7 @@
                                         <a class="nav-link" href="{{route('services.index')}}">Services</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#">Specialités</a>
+                                        <a class="nav-link" href="{{route('specialities.index')}}">Specialités</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="{{route('regions.index')}}">Régions</a>

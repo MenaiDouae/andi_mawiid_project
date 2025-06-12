@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RolesController;
+use App\Http\Controllers\VillesController;
 use App\Http\Controllers\RegionsController;
 use App\Http\Controllers\PatientsController;
 use App\Http\Controllers\ServicesController;
@@ -10,7 +11,7 @@ use App\Http\Controllers\PersonnelController;
 use App\Http\Controllers\RendezVousController;
 use App\Http\Controllers\PermissionsController;
 use App\Http\Controllers\TraitementsController;
-use App\Http\Controllers\VillesController;
+use App\Http\Controllers\SpecialitiesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -134,5 +135,14 @@ Route::post('/ville',[VillesController::class,'api_store'])->name('api.ville.sto
 Route::get('/ville/{id_ville}',[VillesController::class,'api_show'])->name('api.ville.show');
 Route::put('/ville/{id_ville}',[VillesController::class,'api_update'])->name('api.ville.update');
 Route::delete('/ville/{id_ville}',[VillesController::class,'api_destroy'])->name('api.ville.delete');
-
+/*
+|--------------------------------------------------------------------------
+| Specialities
+|--------------------------------------------------------------------------
+*/
+Route::get('/specialities',[SpecialitiesController::class,'api_index'])->name('api.specialities.index');
+Route::post('/speciality',[SpecialitiesController::class,'api_store'])->name('api.speciality.store');
+Route::get('/speciality/{id_specialite}',[SpecialitiesController::class,'api_show'])->name('api.speciality.show');
+Route::put('/speciality/{id_specialite}',[SpecialitiesController::class,'api_update'])->name('api.speciality.update');
+Route::delete('/speciality/{id_specialite}',[SpecialitiesController::class,'api_destroy'])->name('api.speciality.delete');
 
