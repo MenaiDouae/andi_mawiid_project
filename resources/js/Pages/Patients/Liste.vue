@@ -26,16 +26,12 @@
         </div> 
         <div class="col-5">
             <CreatePatient v-if="mode === 'create'" @patientAdded="refreshPatients" />
-            <UpdatePatient v-if="mode === 'update'" :patient="updated_patient" @patientUpdated="refreshPatients" @cancelUpdate="handleCancelUpdate" />
-            <DetailsPatient v-if="mode === 'details'" :patient="details_patient" :lastAppointment="lastAppointment"  @close="closeDetails" />
         </div>
     </div>
 </template>
 
 <script setup>
 import CreatePatient from '@/Pages/Patients/Create.vue';
-import UpdatePatient from '@/Pages/Patients/Edit.vue';
-import DetailsPatient from '@/Pages/Patients/Details.vue';
 import axios from 'axios';
 import { Head } from '@inertiajs/vue3';
 import DataTable from 'datatables.net-vue3';
@@ -49,11 +45,7 @@ const props = defineProps({
     patients: Array,
 });
 const patients_data = ref(props.patients || []);
-const updating = ref(false);
 const mode = ref("create");
-const updated_patient=ref(null);
-const details_patient=ref(null);
-const lastAppointment = ref(null);
 const columns = [
     { data: 'nom', title: 'Nom' },
     { data: 'prenom', title: 'Prénom' },
@@ -65,9 +57,6 @@ const columns = [
         searchable: false,
         render: function (data, type, row) {
             return `
-        <button class="btn btn-sm btn-primary btn-edit" data-id="${row.id_patient}">
-          <i class="la la-pen"></i>
-        </button>
         <button class="btn btn-sm btn-danger btn-delete" data-id="${row.id_patient}">
           <i class="la la-trash"></i>
         </button>
@@ -90,14 +79,6 @@ onMounted(() => {
         if (e.target.closest('.btn-delete')) {
             const id = e.target.closest('.btn-delete').dataset.id;
             deletePatient(parseInt(id));
-        }
-        if (e.target.closest('.btn-edit')) {
-            const id = e.target.closest('.btn-edit').dataset.id;
-            updatePatient(parseInt(id));
-        }
-        if (e.target.closest('.btn-details')) {
-            const id = e.target.closest('.btn-details').dataset.id;
-            showDetails(parseInt(id));
         }
     });
 });
@@ -157,36 +138,6 @@ const deletePatient = async (id) => {
             }
         }
     });
-};
-
-const updatePatient = (id) => {
-    updated_patient.value = patients_data.value.find(p => p.id_patient === id);
-    mode.value = 'update';
-};
-
-const showDetails = async (id) => {
-    try {
-        const response = await axios.get(route('api.patients.show', id));
-        if (response.status === 200) {
-            details_patient.value = response.data.patient;
-            lastAppointment.value = response.data.lastAppointment;
-            mode.value = 'details';
-        }
-    } catch (error) {
-        console.error(error);
-        Swal.fire('Erreur', 'Impossible de charger les détails', 'error');
-    }
-};
-
-const closeDetails = () => {
-    details_patient.value = null;
-    lastAppointment.value = null;
-    mode.value = 'create';
-};
-
-const handleCancelUpdate = () => {
-    updated_patient.value = null;
-    mode.value = 'create';
 };
 </script>
 
