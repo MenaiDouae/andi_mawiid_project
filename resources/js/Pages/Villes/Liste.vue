@@ -54,7 +54,7 @@ const updating = ref(false);
 const updated_ville = ref(null);
 const columns = [
     { data: 'ville', title: 'ville' },
-
+    
     {
         data: null,
         title: 'Actions',

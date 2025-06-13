@@ -28,7 +28,10 @@ class RendezVous extends Model
     {
         return $this->belongsTo(Patients::class , 'id_patient', 'id_patient');
     }
-
+    public function factures()
+    {
+    return $this->hasMany(Factures::class, 'id_rendez_vous', 'id_rendez_vous');
+    }   
     public function cabinet()
     {
         return $this->belongsTo(Cabinets::class, 'id_cabinet', 'id_cabinet');

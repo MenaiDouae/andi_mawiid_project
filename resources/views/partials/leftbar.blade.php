@@ -57,7 +57,7 @@
                             </div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="{{route('patients.index')}}">
                                 <i class="iconoir-group menu-icon"></i>
                                 <span>Patients</span>
                             </a>

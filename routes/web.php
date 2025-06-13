@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PatientsController;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
@@ -58,3 +59,9 @@ Route::get('/villes',[VillesController::class ,'index'])->name('villes.index');
 |--------------------------------------------------------------------------
 */
 Route::get('/specialities',[SpecialitiesController::class ,'index'])->name('specialities.index');
+/*
+|--------------------------------------------------------------------------
+| Patients
+|--------------------------------------------------------------------------
+*/
+Route::get('/patients',[PatientsController::class ,'index'])->name('patients.index');

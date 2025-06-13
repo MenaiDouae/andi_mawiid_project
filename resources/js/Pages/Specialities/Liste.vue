@@ -57,6 +57,7 @@ const columns = [
         title: 'Actions',
         orderable: false,
         searchable: false,
+        className: 'text-end',
         render: function (data, type, row) {
             return `
         <button class="btn btn-sm btn-primary btn-edit" data-id="${row.id_specialite}">
