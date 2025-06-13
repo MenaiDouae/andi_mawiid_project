@@ -69,14 +69,12 @@ class PatientsController extends Controller
 
     public function api_show($id_patient)
     {
-        $patient = Patients::with('rendezVous')->find($id_patient);
+         $patient=Patients::withRelations()->find($id_patient);
         if (!$patient) {
             return response()->json(['error' => 'Patient not found'], 404);
         }
-        $lastAppointment = $patient->rendezVous()->with('service')->orderByDesc('date_rendez_vous')->first();
         return response()->json([
             'patient'=>$patient,
-            'lastAppointment'=>$lastAppointment
         ]);
     }
 

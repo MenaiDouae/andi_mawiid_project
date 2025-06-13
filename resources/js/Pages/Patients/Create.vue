@@ -63,7 +63,6 @@
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary">Ajouter</button>
-                <button type="reset" class="btn btn-secondary">Annuler</button>
             </form>
         </div>
     </div>
