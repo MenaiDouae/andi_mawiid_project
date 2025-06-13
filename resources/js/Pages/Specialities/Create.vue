@@ -34,7 +34,7 @@ export default {
         async submitForm() {
             try {
                 const response = await axios.post(route('api.speciality.store'), this.data);
-                this.data.speciality = '';
+                this.data.designation = '';
                 if (response.status === 201) {
                     this.$swal('Succès', response.data.success, 'success');
                     this.$emit('specialityAdded');

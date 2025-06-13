@@ -24,7 +24,7 @@ class CabinetsController extends Controller
             'adresse'=>'required',
             'fixe'=>'required',
             'mobile'=>'required',
-            'email'=>'required',
+            'email'=>'required|email',
             'id_ville'=>'required',
             'id_specialite'=>'required'
         ]);

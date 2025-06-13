@@ -2,16 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StorePatientRequest;
-use App\Models\Patients;
 use App\Models\User;
+use Inertia\Inertia;
+use App\Models\Patients;
 use Illuminate\Http\Request;
-use Illuminate\Database\QueryException;
-use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\QueryException;
+use App\Http\Requests\StorePatientRequest;
 
 class PatientsController extends Controller
 {
+    /* ------------------------------------------
+    /  Frontend for Patients
+    / ------------------------------------------ */
+    public function index(){
+        $patients=Patients::withRelations()->get();
+        return Inertia::render('Patients/Liste',[
+            'patients'=>$patients
+        ]);
+    }
+
+     /* ------------------------------------------
+    /  API Endpoints for Patients
+    / ------------------------------------------ */
 
     public function api_index()
     {
@@ -55,12 +69,15 @@ class PatientsController extends Controller
 
     public function api_show($id_patient)
     {
-        $patient = Patients::find($id_patient);
+        $patient = Patients::with('rendezVous')->find($id_patient);
         if (!$patient) {
             return response()->json(['error' => 'Patient not found'], 404);
         }
-
-        return response()->json($patient);
+        $lastAppointment = $patient->rendezVous()->with('service')->orderByDesc('date_rendez_vous')->first();
+        return response()->json([
+            'patient'=>$patient,
+            'lastAppointment'=>$lastAppointment
+        ]);
     }
 
     public function api_update(Request $request, $id_patient)
